@@ -7,6 +7,7 @@ import { Menu, X, ChevronDown, ChevronRight } from "lucide-react";
 import { SiLine } from "react-icons/si";
 import { getIcon } from "@/lib/icons";
 import { primaryMessenger } from "@/lib/config";
+import { trackConsultClick } from "@/lib/track";
 import type { Locale } from "@/lib/types";
 import { cn } from "@/lib/cn";
 import Logo from "./Logo";
@@ -103,6 +104,9 @@ export default function Header({ treatmentCats }: { treatmentCats: TreatmentCat[
             href={line.href}
             target="_blank"
             rel="noopener noreferrer"
+            onClick={() =>
+              trackConsultClick({ channel: line.type, locale, placement: "header" })
+            }
             className="inline-flex items-center gap-2 rounded-full bg-[#06C755] px-5 py-2.5 text-[14px] font-bold text-white shadow-md transition hover:shadow-lg active:scale-95"
           >
             <SiLine className="size-[18px]" />

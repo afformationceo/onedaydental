@@ -49,6 +49,23 @@ export function trackEvent(name: string, params: Record<string, unknown> = {}) {
   window.gtag?.("event", name, { ...params, ...getUtm() });
 }
 
+/**
+ * 같은 클릭이 두 번 집계되는 걸 막는 가드 — 짧은 시간창(600ms) 안에 같은
+ * channel+placement+treatment 조합이 다시 들어오면 무시한다(더블클릭, 중복
+ * onClick 바인딩 등 방어). 모듈 스코프 변수라 탭 단위로 유지된다.
+ */
+let lastFire: { key: string; at: number } | null = null;
+const DEDUP_WINDOW_MS = 600;
+
+function shouldDedup(key: string): boolean {
+  const now = Date.now();
+  if (lastFire && lastFire.key === key && now - lastFire.at < DEDUP_WINDOW_MS) {
+    return true;
+  }
+  lastFire = { key, at: now };
+  return false;
+}
+
 /** Fire a consultation-click event to GA4 + Meta Pixel, tagged with channel/treatment/UTM. */
 export function trackConsultClick(opts: {
   channel: string;
@@ -57,8 +74,13 @@ export function trackConsultClick(opts: {
   placement: string;
 }) {
   if (typeof window === "undefined") return;
+  const dedupKey = `${opts.channel}|${opts.placement}|${opts.treatment ?? ""}`;
+  if (shouldDedup(dedupKey)) return;
+
   const utm = getUtm();
-  const payload = { ...opts, ...utm };
+  // transport_type:'beacon' — 이 직후 바로 LINE/IG 등으로 페이지 이동이 일어나도
+  // 요청이 중간에 끊기지 않고 navigator.sendBeacon 으로 확실히 전송되게 한다.
+  const payload = { ...opts, ...utm, transport_type: "beacon" };
   window.gtag?.("event", "consult_click", payload);
   // 브리프 §7 — 모든 라인 버튼은 line_click 으로도 발화(라인 도달률 자동 집계).
   if (opts.channel === "line") window.gtag?.("event", "line_click", payload);
