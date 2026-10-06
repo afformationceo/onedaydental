@@ -26,12 +26,17 @@ export interface Channel {
   external: boolean;
 }
 
-/** 공식 홈페이지 (canonical) */
+/** 공식 홈페이지 (canonical) — SAME_AS 용으로만 쓰고 UI 채널 목록에는 올리지 않는다(자기 자신 링크라 무의미). */
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 const WEBSITE_URL = "https://tw.onedaydent.com/";
+/** Instagram — ChannelHub 그리드가 아니라 헤더 아래 플로팅 버튼(FloatingInstagram)으로 노출. */
+export const INSTAGRAM_URL = "https://www.instagram.com/oneday_dental_kr/";
+/** Littly — UI 채널 목록에서는 제거(사용 안 함). SAME_AS 에서도 제외. */
 
 /**
- * 공식 채널 전체 목록 — 표시 순서 = 전환 우선순위.
- * LINE(1순위 회수) → Instagram → Littly(허브) → 홈페이지 → 구글맵 3관.
+ * 공식 채널 목록(ChannelHub UI) — 표시 순서 = 전환 우선순위.
+ * LINE(1순위 회수, 단일 회수 경로) → 구글맵 3관.
+ * Instagram/홈페이지/Littly는 여기 목록이 아니라 각자의 자리(플로팅 버튼·SAME_AS)에서만 쓴다.
  */
 export const CHANNELS: Channel[] = [
   {
@@ -41,33 +46,6 @@ export const CHANNELS: Channel[] = [
     sublabel: "24H 即時諮詢・繁中客服",
     href: "https://lin.ee/ZpAIhzC",
     color: "#06C755",
-    external: true,
-  },
-  {
-    id: "instagram",
-    icon: "instagram",
-    label: "Instagram",
-    sublabel: "@oneday_dental_kr",
-    href: "https://www.instagram.com/oneday_dental_kr/",
-    color: "#E1306C",
-    external: true,
-  },
-  {
-    id: "littly",
-    icon: "link",
-    label: "全部連結 Littly",
-    sublabel: "所有官方連結一次擁有",
-    href: "https://litt.ly/onedaydentaltw",
-    color: "#134c67",
-    external: true,
-  },
-  {
-    id: "website",
-    icon: "globe",
-    label: "官方網站",
-    sublabel: "tw.onedaydent.com",
-    href: WEBSITE_URL,
-    color: "#134c67",
     external: true,
   },
   {
@@ -99,10 +77,11 @@ export const CHANNELS: Channel[] = [
   },
 ];
 
-/** 구조화데이터 sameAs 용 — 공식 소셜/허브 프로필 URL (지도 핀 제외). */
-export const SAME_AS: string[] = CHANNELS.filter(
-  (c) => c.id === "line" || c.id === "instagram" || c.id === "littly",
-).map((c) => c.href);
+/** 구조화데이터 sameAs 용 — 공식 소셜 프로필 URL (UI 채널 목록과 별개, 지도 핀 제외). */
+export const SAME_AS: string[] = [
+  CHANNELS.find((c) => c.id === "line")!.href,
+  INSTAGRAM_URL,
+];
 
 export function getChannel(id: ChannelId): Channel | undefined {
   return CHANNELS.find((c) => c.id === id);

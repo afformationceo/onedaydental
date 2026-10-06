@@ -2,22 +2,20 @@
 
 import { useState, useEffect } from "react";
 import { useLocale } from "next-intl";
-import { SiLine, SiKakaotalk, SiInstagram } from "react-icons/si";
-import { ChevronUp } from "lucide-react";
-import { messengersByLocale, buildMessengerHref, type Messenger } from "@/lib/config";
+import { primaryMessenger, buildMessengerHref } from "@/lib/config";
 import type { Locale } from "@/lib/types";
 import { trackConsultClick } from "@/lib/track";
+import { SiLine } from "react-icons/si";
+import { ChevronUp } from "lucide-react";
 import { cn } from "@/lib/cn";
 
-const ICONS: Record<Messenger["type"], React.ComponentType<{ className?: string }>> = {
-  line: SiLine,
-  kakao: SiKakaotalk,
-  instagram: SiInstagram,
-};
-
+/**
+ * 단일 회수 경로(브리프 §5) — 여기엔 LINE 하나만 띄운다.
+ * Instagram은 더 이상 이 스택에 같이 쌓지 않고 FloatingInstagram(우측상단)으로 분리했다.
+ */
 export default function FloatingCTA() {
   const locale = useLocale() as Locale;
-  const list = messengersByLocale[locale];
+  const line = primaryMessenger(locale);
   const [showTop, setShowTop] = useState(false);
 
   useEffect(() => {
@@ -37,31 +35,20 @@ export default function FloatingCTA() {
           <ChevronUp className="size-5" />
         </button>
       )}
-      {list.map((m, i) => {
-        const Icon = ICONS[m.type];
-        return (
-          <a
-            key={m.type}
-            href={buildMessengerHref(m, locale, "")}
-            target="_blank"
-            rel="noopener noreferrer"
-            onClick={() =>
-              trackConsultClick({ channel: m.type, locale, placement: "floating" })
-            }
-            aria-label={m.label}
-            className={cn(
-              "pointer-events-auto grid size-12 place-items-center rounded-full text-white shadow-xl transition active:scale-90",
-              i === 0 && "animate-[pulse_2.5s_ease-in-out_infinite]",
-            )}
-            style={{
-              backgroundColor: m.color,
-              color: m.type === "kakao" ? "#3C1E1E" : "#fff",
-            }}
-          >
-            <Icon className="size-6" />
-          </a>
-        );
-      })}
+      <a
+        href={buildMessengerHref(line, locale, "")}
+        target="_blank"
+        rel="noopener noreferrer"
+        onClick={() => trackConsultClick({ channel: line.type, locale, placement: "floating" })}
+        aria-label={line.label}
+        className={cn(
+          "pointer-events-auto grid size-12 place-items-center rounded-full text-white shadow-xl transition active:scale-90",
+          "animate-[pulse_2.5s_ease-in-out_infinite]",
+        )}
+        style={{ backgroundColor: line.color, color: "#fff" }}
+      >
+        <SiLine className="size-6" />
+      </a>
     </div>
   );
 }

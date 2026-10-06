@@ -18,7 +18,7 @@ export function generateStaticParams() {
 
 const COPY: Record<Locale, { kicker: string; title: string; subtitle: string; empty: string; hubTitle: string }> = {
   "zh-TW": {
-    kicker: "ONEDAY 專欄",
+    kicker: "ONEDAY 部落格",
     title: "渡韓看牙・牙齒美學 完整指南",
     subtitle:
       "陶瓷貼片、牙齒美白、植牙到渡韓流程 — 由首爾江南 ONEDAY 牙科，為台灣患者整理的真實資訊。",

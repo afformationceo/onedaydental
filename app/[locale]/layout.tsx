@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
+import { Noto_Sans_TC } from "next/font/google";
 import { NextIntlClientProvider, hasLocale } from "next-intl";
 import { setRequestLocale } from "next-intl/server";
 import { routing, localeMeta, type Locale } from "@/i18n/routing";
@@ -9,6 +10,17 @@ import AppShell from "@/components/AppShell";
 import Analytics from "@/components/Analytics";
 import JsonLd from "@/components/JsonLd";
 import "../globals.css";
+
+// zh-TW(번체) 본문 글자는 Pretendard가 커버하지 못한다(한글 전용 폰트) — 기존엔
+// globals.css 에 "Noto Sans TC" 이름만 적혀있고 실제로 로드하는 곳이 없어서,
+// 해당 시스템 폰트가 없는 기기에서는 브라우저 기본 서체로 깨져 보였다.
+// next/font/google 로 자체 호스팅 + swap + preload 를 한 번에 해결한다.
+const notoSansTC = Noto_Sans_TC({
+  subsets: ["latin"],
+  weight: ["400", "500", "700", "900"],
+  variable: "--font-noto-sans-tc",
+  display: "swap",
+});
 
 export function generateStaticParams() {
   return routing.locales.map((locale) => ({ locale }));
@@ -66,7 +78,7 @@ export default async function LocaleLayout({
           href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Space+Mono:wght@400;700&display=swap"
         />
       </head>
-      <body>
+      <body className={notoSansTC.variable}>
         <NextIntlClientProvider>
           <JsonLd locale={l} />
           <AppShell>{children}</AppShell>

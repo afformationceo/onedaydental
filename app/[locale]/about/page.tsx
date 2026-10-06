@@ -120,10 +120,15 @@ export default async function AboutPage({
           title={t("doctors.title")}
           subtitle={t("doctors.subtitle")}
         />
-        <div className="mt-6 space-y-4 px-5">
+        <div className="mt-6 space-y-5 px-5">
           {clinic.doctors.map((d, i) => (
             <Reveal key={d.id} delay={i * 0.05}>
-              <DoctorCard doctor={d} locale={locale} specialtyLabel={t("doctors.specialty")} />
+              <DoctorCard
+                doctor={d}
+                locale={locale}
+                specialtyLabel={t("doctors.specialty")}
+                featured={i === 0}
+              />
             </Reveal>
           ))}
         </div>

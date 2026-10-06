@@ -70,9 +70,10 @@
   --color-surface-muted: #e8f0f4;
 
   /* Fonts — distinctive display (geometric/technical) + clean body.
-     Body keeps Pretendard + Noto Sans TC for zh-TW legibility. */
-  --font-sans: "Pretendard Variable", Pretendard, system-ui, -apple-system,
-    "Segoe UI", "Hiragino Sans", "Noto Sans JP", "Noto Sans TC",
+     Body keeps Pretendard(한글) + self-hosted Noto Sans TC(繁中, via
+     next/font/google — see app/[locale]/layout.tsx) for zh-TW legibility. */
+  --font-sans: "Pretendard Variable", Pretendard, var(--font-noto-sans-tc),
+    system-ui, -apple-system, "Segoe UI", "Hiragino Sans", "Noto Sans JP",
     "Microsoft JhengHei", sans-serif;
   --font-display: "Space Grotesk", "Pretendard Variable", Pretendard, system-ui,
     sans-serif;
@@ -256,6 +257,16 @@ body {
 }
 .reveal-rise {
   animation: reveal-rise 0.65s var(--ease-out-soft) both;
+}
+
+/* Hero scene switch — plain opacity fade-in on mount (Hero.tsx) */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
 }
 
 /* Mint scanline sweep — "digital precision" micro-motion (feature panels) */

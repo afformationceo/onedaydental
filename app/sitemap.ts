@@ -7,7 +7,7 @@ import { routing } from "@/i18n/routing";
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const clinic = getClinic();
-  const staticPaths = ["", "/about", "/treatments", "/prices", "/reviews", "/reservation", "/blog"];
+  const staticPaths = ["", "/about", "/treatments", "/prices", "/reservation", "/blog"];
   const treatmentPaths = clinic.treatments.map((tr) => `/treatments/${tr.slug}`);
   const allPaths = [...staticPaths, ...treatmentPaths];
 

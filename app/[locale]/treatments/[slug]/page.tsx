@@ -12,6 +12,8 @@ import MessengerButtons from "@/components/MessengerButtons";
 import { SectionHeader } from "@/components/sections/Section";
 import TreatmentImage from "@/components/TreatmentImage";
 import { CATEGORY_ICON } from "@/components/TreatmentCard";
+import { getAllPosts } from "@/lib/blog";
+import BlogCard from "@/components/blog/BlogCard";
 
 export function generateStaticParams() {
   const clinic = getClinic();
@@ -35,7 +37,7 @@ export async function generateMetadata({
   return buildMetadata({
     locale: locale as Locale,
     path: `/treatments/${slug}`,
-    title: tx(tr.name, locale as Locale),
+    title: `${tx(tr.hook, locale as Locale)} | ${tx(tr.name, locale as Locale)}`,
     description: desc.slice(0, 155),
   });
 }
@@ -53,11 +55,14 @@ export default async function TreatmentDetail({
   if (!tr) notFound();
   const detail = getTreatmentDetail(slug);
   const name = tx(tr.name, locale);
+  const relatedPosts = getAllPosts(locale)
+    .filter((p) => p.relatedTreatments?.includes(slug))
+    .slice(0, 3);
 
   return (
     <article className="mx-auto max-w-5xl pb-12 lg:px-6">
-      {/* Hero — compact, navy framed */}
-      <div className="relative aspect-[16/9] max-h-[340px] w-full overflow-hidden lg:mt-6 lg:rounded-xl">
+      {/* Hero — navy framed, 더 크고 가시적으로 */}
+      <div className="relative aspect-[4/3] max-h-[480px] w-full overflow-hidden sm:aspect-[16/9] lg:mt-6 lg:rounded-xl">
         <TreatmentImage
           src={tr.image}
           alt={name}
@@ -74,13 +79,14 @@ export default async function TreatmentDetail({
         >
           <ArrowLeft className="size-5" />
         </Link>
-        <div className="absolute inset-x-0 bottom-0 p-5">
+        <div className="absolute inset-x-0 bottom-0 p-5 sm:p-7">
           <span className="rounded-md bg-mint-400 px-2.5 py-1 text-[11px] font-bold text-brand-950">
             {tx(tr.tagline, locale)}
           </span>
-          <h1 className="mt-2 font-display text-[clamp(1.5rem,5vw,2.2rem)] font-bold leading-tight text-white">
-            {name}
+          <h1 className="mt-2.5 font-display text-[clamp(1.7rem,6vw,2.7rem)] font-bold leading-tight text-white">
+            {tx(tr.hook, locale)}
           </h1>
+          <p className="mt-1.5 text-[15px] font-semibold text-mint-200">{name}</p>
         </div>
       </div>
 
@@ -101,22 +107,22 @@ export default async function TreatmentDetail({
       </div>
 
       {/* Lead + highlights */}
-      <div className="px-5 pt-6 lg:px-0">
-        <p className="text-[15.5px] font-semibold leading-relaxed text-ink-800">
+      <div className="px-5 pt-7 lg:px-0">
+        <p className="text-[17px] font-semibold leading-relaxed text-ink-800">
           {detail ? tx(detail.lead, locale) : tx(tr.description, locale)}
         </p>
         {detail && (
-          <p className="mt-3 text-[14px] leading-relaxed text-ink-600">
+          <p className="mt-3 text-[15px] leading-relaxed text-ink-600">
             {tx(tr.description, locale)}
           </p>
         )}
-        <ul className="mt-5 flex flex-wrap gap-2">
+        <ul className="mt-5 flex flex-wrap gap-2.5">
           {tr.highlights.map((h, i) => (
             <li
               key={i}
-              className="inline-flex items-center gap-1.5 rounded-md bg-surface-soft px-3 py-1.5 text-[12.5px] font-semibold text-brand-700 ring-1 ring-ink-100"
+              className="inline-flex items-center gap-1.5 rounded-lg bg-surface-soft px-3.5 py-2 text-[13.5px] font-bold text-brand-700 ring-1 ring-ink-100"
             >
-              <Check className="size-3.5 text-mint-500" strokeWidth={3} />
+              <Check className="size-4 text-mint-500" strokeWidth={3} />
               {tx(h, locale)}
             </li>
           ))}
@@ -128,13 +134,13 @@ export default async function TreatmentDetail({
         <div className="mt-8 space-y-6 px-5 lg:px-0">
           {detail.sections.map((s, i) => (
             <section key={i}>
-              <h2 className="flex items-center gap-2 font-display text-[16px] font-bold text-ink-900">
-                <span className="grid size-6 place-items-center rounded-md bg-brand-900 font-mono text-[11px] font-bold text-mint-400">
+              <h2 className="flex items-center gap-2.5 font-display text-[18px] font-bold text-ink-900">
+                <span className="grid size-8 shrink-0 place-items-center rounded-lg bg-brand-900 font-mono text-[13px] font-bold text-mint-400">
                   {i + 1}
                 </span>
                 {tx(s.heading, locale)}
               </h2>
-              <p className="mt-2 pl-8 text-[14px] leading-relaxed text-ink-600">
+              <p className="mt-2.5 pl-[42px] text-[15px] leading-relaxed text-ink-600">
                 {tx(s.body, locale)}
               </p>
             </section>
@@ -177,6 +183,18 @@ export default async function TreatmentDetail({
                   {tx(f.a, locale)}
                 </p>
               </details>
+            ))}
+          </div>
+        </div>
+      )}
+
+      {/* 관련 블로그 글 — blog ↔ treatment 양방향 앵커텍스트 내부링크 */}
+      {relatedPosts.length > 0 && (
+        <div className="mt-10 px-5 lg:px-0">
+          <SectionHeader kicker="BLOG" title={t("treatments.relatedBlogTitle")} />
+          <div className="mt-5 grid gap-4 sm:grid-cols-3">
+            {relatedPosts.map((p) => (
+              <BlogCard key={p.slug} post={p} locale={locale} />
             ))}
           </div>
         </div>

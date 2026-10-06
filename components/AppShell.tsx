@@ -7,7 +7,9 @@ import Header from "./Header";
 import Footer from "./Footer";
 import BottomTabBar from "./BottomTabBar";
 import FloatingCTA from "./FloatingCTA";
+import FloatingInstagram from "./FloatingInstagram";
 import PromoBar from "./PromoBar";
+import HashScroll from "./HashScroll";
 
 export default async function AppShell({ children }: { children: ReactNode }) {
   const locale = (await getLocale()) as Locale;
@@ -24,12 +26,14 @@ export default async function AppShell({ children }: { children: ReactNode }) {
 
   return (
     <div className="app-frame relative flex min-h-dvh flex-col bg-surface">
+      <HashScroll />
       <PromoBar />
       <Header treatmentCats={treatmentCats} />
       <main className="mx-auto w-full max-w-screen-2xl flex-1">{children}</main>
       <Footer />
       <BottomTabBar />
       <FloatingCTA />
+      <FloatingInstagram />
     </div>
   );
 }

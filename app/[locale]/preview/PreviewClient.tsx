@@ -21,7 +21,7 @@ const ROUTES = [
   { path: "/", label: "首頁 / 홈" },
   { path: "/prices", label: "費用 / 비용" },
   { path: "/treatments", label: "診療 / 진료" },
-  { path: "/reviews", label: "心得 / 후기" },
+  { path: "/#reviews", label: "心得 / 후기" },
   { path: "/about", label: "介紹 / 소개" },
   { path: "/reservation", label: "預約 / 예약" },
 ] as const;

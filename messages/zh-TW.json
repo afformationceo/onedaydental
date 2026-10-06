@@ -10,7 +10,7 @@
     "home": "首頁",
     "about": "醫院介紹",
     "treatments": "診療項目",
-    "blog": "專欄",
+    "blog": "部落格",
     "prices": "費用說明",
     "reviews": "真實心得",
     "reservation": "預約諮詢",
@@ -20,36 +20,84 @@
     "home": "首頁",
     "treatments": "診療",
     "reserve": "預約",
-    "reviews": "心得",
+    "blog": "部落格",
     "consult": "加 LINE",
     "prices": "費用"
   },
   "hero": {
     "badge": "台灣患者專屬 · 首爾江南牙齒美學 · 中文翻譯常駐",
-    "title": "韓星同款的牙齒美學",
-    "titleEm": "陶瓷貼片・牙齒美白，致力當日完成",
-    "subtitle": "台灣女生最在意的牙齒美學——陶瓷貼片與牙齒美白，在首爾江南 ONEDAY 致力於當日完成。中文翻譯全程常駐、價格透明公開，渡韓第一次也能輕鬆又安心。",
+    "title": "陶瓷貼片・全瓷冠・植牙・牙齒美白",
+    "titleEm": "通通一天完成",
+    "subtitle": "自家 ONE LAB 數位牙技所與 T-Scan 精密診斷，減少您的訪院次數；中文翻譯從諮詢到治療全程陪同，外國患者採用與韓國本地相同的價目表。",
     "ctaPrimary": "加 LINE，1 分鐘免費諮詢",
-    "ctaSecondary": "查看美白・貼片費用",
+    "ctaSecondary": "查看完整價目表",
     "trustSamePrice": "透明公開的價格表",
-    "stats": [
+    "doctorBadge": "院長",
+    "scenes": [
       {
-        "value": "當日",
-        "label": "陶瓷貼片・牙齒美白 致力當日完成"
+        "image": "/facility/hall1/hall1-03.jpg",
+        "caption": "陶瓷貼片・全瓷冠・植牙・牙齒美白",
+        "subcaption": "韓國oneday牙科，通通一天完成",
+        "treatment": null
       },
       {
-        "value": "NT$5,825",
-        "label": "牙齒美白 公開價（25 萬韓元起）"
+        "image": "/facility/hall1/hall1-01.jpg",
+        "caption": "陶瓷貼片",
+        "subcaption": "數位微笑設計，施作前先預覽",
+        "treatment": "laminate"
       },
       {
-        "value": "中文",
-        "label": "翻譯全程常駐・渡韓零語言負擔"
+        "image": "/facility/onelab/onelab-01.jpg",
+        "caption": "全瓷冠",
+        "subcaption": "自家 ONE LAB 牙技所當日製作",
+        "treatment": "all-ceramic"
+      },
+      {
+        "image": "/facility/onelab/onelab-13.jpg",
+        "caption": "植牙",
+        "subcaption": "診斷到植入，一次看診完成",
+        "treatment": "oneday-implant"
+      },
+      {
+        "image": "/facility/hall2/hall2-01.jpg",
+        "caption": "牙齒美白",
+        "subcaption": "食藥處核可美白劑，當日完成",
+        "treatment": "dental-bleaching"
       }
     ]
   },
   "usp": {
     "kicker": "WHY ONEDAY",
     "title": "台灣患者為什麼\n都選擇 韓國oneday牙科"
+  },
+  "story": {
+    "kicker": "WHY THIS TREATMENT",
+    "title": "陶瓷貼片・全瓷冠・植牙・牙齒美白,\n為什麼要在 韓國oneday牙科 進行？",
+    "subtitle": "每種牙齒在意之處都不一樣 — 找到符合您需求的解答。",
+    "ctaTreatment": "查看詳情",
+    "ctaPrice": "查看價目表",
+    "items": [
+      {
+        "slug": "laminate",
+        "hook": "牙齒大小不均、形狀不協調，或門牙縫隙讓您在意，卻不想磨掉太多牙齒嗎？",
+        "body": "韓國oneday牙科以微量修磨最大程度保留自然牙，透過數位精密診斷與自家 ONE LAB 牙技所製作，致力於當日完成陶瓷貼片。"
+      },
+      {
+        "slug": "all-ceramic",
+        "hook": "牙齒變色或缺損範圍較大，陶瓷貼片難以完全覆蓋嗎？",
+        "body": "全瓷冠不會造成牙齦變色，透明度與光澤高、美觀性佳，搭配韓國oneday牙科的數位精密診斷與自家牙技所，可於當日完成。"
+      },
+      {
+        "slug": "oneday-implant",
+        "hook": "缺牙或牙齒鬆動需要植牙，卻擔心得多次往返韓國嗎？",
+        "body": "韓國oneday牙科以減少翻瓣的手術方式，搭配自家牙技所當日製作臨時假牙，致力於診斷・植入・臨時假牙一次看診完成。"
+      },
+      {
+        "slug": "dental-bleaching",
+        "hook": "想在旅程前自然變亮牙齒，卻擔心傷牙或牙齒敏感嗎？",
+        "body": "韓國oneday牙科使用食藥處核可美白劑（ZOOM），將牙齒損傷與牙齦刺激降到最低，且無需恢復期，治療當日即可照常生活・旅遊。"
+      }
+    ]
   },
   "facility": {
     "kicker": "FACILITY · ONE LAB",
@@ -222,14 +270,7 @@
     "sameClinicNote": "1・2・3館皆隸屬同一間韓國oneday牙科（並非不同醫院）"
   },
   "treatments": {
-    "faqTitle": "常見問題"
-  },
-  "googleReviews": {
-    "kicker": "GOOGLE REVIEWS",
-    "title": "Google 上的真實評論",
-    "subtitle": "1・2・3館的韓國患者於 Google 地圖留下的真實評論（韓文原文翻譯為繁體）",
-    "source": "韓國患者 · Google 評論",
-    "disclaimer": "以上為本院 Google 地圖（1・2・3館）的真實患者評論，原文為韓文、由本院翻譯為繁體中文。評論屬個人主觀經驗，療程效果因人而異。",
-    "moreOnGoogle": "在 Google 地圖查看更多真實評論："
+    "faqTitle": "常見問題",
+    "relatedBlogTitle": "相關部落格文章"
   }
 }

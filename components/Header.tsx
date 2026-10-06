@@ -53,7 +53,6 @@ export default function Header({ treatmentCats }: { treatmentCats: TreatmentCat[
     { href: "/treatments", key: "treatments" },
     { href: "/prices", key: "prices" },
     { href: "/blog", key: "blog" },
-    { href: "/reviews", key: "reviews" },
     { href: "/about", key: "about" },
   ] as const;
 
@@ -66,7 +65,6 @@ export default function Header({ treatmentCats }: { treatmentCats: TreatmentCat[
   const tailLinks = [
     { href: "/prices", key: "prices" },
     { href: "/blog", key: "blog" },
-    { href: "/reviews", key: "reviews" },
   ] as const;
 
   return (

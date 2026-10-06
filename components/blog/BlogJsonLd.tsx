@@ -76,7 +76,7 @@ export default function BlogJsonLd({
         }
       : null;
 
-  const blogLabel = locale === "ko" ? "블로그" : "專欄";
+  const blogLabel = locale === "ko" ? "블로그" : "部落格";
   // localePrefix: "as-needed" — default locale(zh-TW)은 prefix 없음. seo.ts/sitemap 과 동일 SSOT.
   const localePrefix = locale === routing.defaultLocale ? "" : `/${locale}`;
   const breadcrumb = {

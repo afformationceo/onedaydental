@@ -52,14 +52,18 @@ export default async function UspSection() {
               );
             }
 
+            // 마지막 카드 — 2열(모바일)/4열(데스크톱) 그리드에서 남는 빈칸을 채우려고
+            // 2칸을 차지하게 한다(featured 카드 1개 + 일반 5개 = 홀수라 안 하면
+            // 모바일·데스크톱 둘 다 마지막 줄에 빈 회색 셀이 하나 남는다).
+            const isLast = i === clinic.usps.length - 1;
             return (
-              <Reveal key={i} delay={i * 0.05}>
+              <Reveal key={i} delay={i * 0.05} className={isLast ? "col-span-2" : undefined}>
                 <div className="group relative flex h-full flex-col bg-surface p-5 transition hover:bg-surface-soft">
                   <span className="font-mono text-[11px] font-bold tracking-widest text-mint-600">
                     {String(i + 1).padStart(2, "0")}
                   </span>
-                  <span className="mt-3 grid size-11 place-items-center rounded-lg border border-brand-100 bg-brand-50 text-brand-700 transition group-hover:border-mint-400 group-hover:bg-mint-400/10 group-hover:text-mint-600">
-                    <Icon className="size-[21px]" strokeWidth={2.1} />
+                  <span className="mt-3 grid size-14 place-items-center rounded-xl bg-gradient-to-br from-brand-900 to-brand-700 text-mint-400 shadow-md shadow-brand-900/20 transition group-hover:from-brand-800 group-hover:to-brand-600">
+                    <Icon className="size-[25px]" strokeWidth={1.8} />
                   </span>
                   <h3 className="mt-4 text-[14.5px] font-bold leading-tight text-ink-900">
                     {tx(u.title, locale)}

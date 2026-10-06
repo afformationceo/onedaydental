@@ -1,41 +1,44 @@
+import { getLocale, getTranslations } from "next-intl/server";
 import Image from "next/image";
-import { getTranslations } from "next-intl/server";
+import { ShieldCheck, BadgeCheck } from "lucide-react";
 import { Link } from "@/i18n/navigation";
-import { ShieldCheck } from "lucide-react";
-import CountUp from "../CountUp";
+import { getClinic } from "@/lib/clinic";
+import { tx } from "@/lib/i18n-text";
+import type { Locale } from "@/lib/types";
 import LineCta from "../LineCta";
+import ButtonLink from "../ButtonLink";
 
+/**
+ * 히어로 — 더 이상 씬이 자동으로 넘어가는 캐러셀이 아니다("점이 왜 있는지 의문"
+ * 피드백 반영, 혼란스러운 자동전환 제거). 대신 실제 대표원장 사진을 크게 보여주고
+ * (내부 사진만으로는 밋밋하다는 피드백 반영), 라미네이트・크라운・임플란트・치아미백
+ * 4개 시술 바로가기를 고정 텍스트로 전부 노출한다(SEO 텍스트는 그대로 유지).
+ */
 export default async function Hero() {
   const t = await getTranslations("hero");
-  const stats = t.raw("stats") as { value: string; label: string }[];
+  const locale = (await getLocale()) as Locale;
+  const clinic = getClinic();
+  const lead = clinic.doctors[0];
+  const quickLinks = t.raw("scenes") as {
+    image: string;
+    caption: string;
+    treatment: string | null;
+  }[];
 
   return (
     <section className="relative overflow-hidden bg-brand-950 text-white">
-      {/* Background image + navy wash + blueprint grid */}
-      <div className="absolute inset-0">
-        <Image
-          src="/facility/reception-wide.jpg"
-          alt=""
-          fill
-          priority
-          sizes="100vw"
-          className="object-cover opacity-35"
-        />
-        <div className="absolute inset-0 bg-gradient-to-br from-brand-950 via-brand-950/85 to-brand-800/70" />
-        <div className="tech-grid absolute inset-0 opacity-60" />
-        <div className="absolute -right-24 -top-24 size-96 rounded-full bg-mint-400/15 blur-3xl" />
-        <div className="absolute -bottom-32 left-0 size-80 rounded-full bg-cyan-500/10 blur-3xl" />
-      </div>
+      <div className="tech-grid absolute inset-0 opacity-25" />
+      <div className="absolute -right-24 -top-24 size-96 rounded-full bg-mint-400/15 blur-3xl" />
+      <div className="absolute -bottom-32 left-0 size-80 rounded-full bg-cyan-500/10 blur-3xl" />
 
-      <div className="relative mx-auto grid w-full max-w-screen-2xl gap-10 px-5 pb-12 pt-12 lg:grid-cols-[1.05fr_0.95fr] lg:items-center lg:gap-14 lg:px-10 lg:pb-20 lg:pt-20">
-        {/* Left — headline */}
+      <div className="relative mx-auto grid w-full max-w-screen-2xl gap-10 px-5 pb-12 pt-12 lg:grid-cols-[1.05fr_0.95fr] lg:items-center lg:gap-14 lg:px-10 lg:pb-16 lg:pt-16">
+        {/* Left — copy */}
         <div>
           <span className="inline-flex items-center gap-2 rounded-full border border-mint-400/30 bg-mint-400/10 px-3 py-1.5 font-mono text-[11px] font-bold uppercase tracking-[0.16em] text-mint-300 backdrop-blur">
             <span className="size-1.5 rounded-full bg-mint-400 shadow-[0_0_8px] shadow-mint-400" />
             {t("badge")}
           </span>
 
-          {/* "1 DAY" tech motif */}
           <div className="mt-5 flex items-baseline gap-3">
             <span className="font-mono text-[13px] font-bold uppercase tracking-[0.3em] text-cyan-300">
               ONE
@@ -59,15 +62,28 @@ export default async function Hero() {
             {t("subtitle")}
           </p>
 
+          {/* 라미네이트・크라운・임플란트・치아미백 — 전부 고정 노출(앵커텍스트) */}
+          <ul className="mt-5 flex flex-wrap gap-2">
+            {quickLinks
+              .filter((s) => s.treatment)
+              .map((s) => (
+                <li key={s.treatment}>
+                  <Link
+                    href={`/treatments/${s.treatment}`}
+                    className="inline-flex items-center gap-1.5 rounded-full border border-white/15 bg-white/5 px-3.5 py-1.5 text-[12.5px] font-bold text-ink-100 backdrop-blur transition hover:border-mint-400/50 hover:bg-white/10 hover:text-white"
+                  >
+                    {s.caption}
+                  </Link>
+                </li>
+              ))}
+          </ul>
+
           <div className="mt-7 flex flex-wrap items-center gap-3">
             {/* 단일 회수 경로 — LINE (브리프 §5). 폼/예약 페이지와 경쟁시키지 않는다. */}
             <LineCta placement="hero" label={t("ctaPrimary")} />
-            <Link
-              href="/prices"
-              className="inline-flex items-center gap-2 rounded-lg border border-white/20 bg-white/5 px-6 py-3.5 text-sm font-bold text-white backdrop-blur-md transition hover:border-mint-400/50 hover:bg-white/10 active:scale-95"
-            >
+            <ButtonLink href="/prices" variant="outline">
               {t("ctaSecondary")}
-            </Link>
+            </ButtonLink>
           </div>
 
           <div className="mt-5 inline-flex items-center gap-2 font-mono text-[12px] font-bold tracking-wide text-mint-300">
@@ -76,30 +92,37 @@ export default async function Hero() {
           </div>
         </div>
 
-        {/* Right — stat console (data grid, not rounded cards) */}
-        <div className="bracket relative rounded-xl border border-white/10 bg-white/[0.04] p-1 backdrop-blur-xl">
-          <div className="rounded-lg border border-white/5 bg-brand-950/40">
-            <div className="flex items-center justify-between border-b border-white/8 px-4 py-2.5 font-mono text-[10.5px] uppercase tracking-[0.18em] text-ink-300">
-              <span>ONEDAY · CLINICAL DATA</span>
-              <span className="flex items-center gap-1.5 text-mint-400">
-                <span className="size-1.5 animate-pulse rounded-full bg-mint-400" />
-                LIVE
-              </span>
+        {/* Right — 대표원장 실제 사진(고정, 캐러셀 아님) */}
+        {lead && (
+          <Link
+            href="/about"
+            className="group bracket relative block overflow-hidden rounded-xl border border-white/10"
+          >
+            <div className="relative aspect-[4/5] w-full sm:aspect-[6/7] lg:aspect-[5/6]">
+              <Image
+                src={lead.photo}
+                alt={tx(lead.name, locale)}
+                fill
+                priority
+                sizes="(max-width: 1024px) 100vw, 45vw"
+                className="object-cover object-top transition duration-500 group-hover:scale-[1.03]"
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-brand-950 via-brand-950/10 to-transparent" />
+              <div className="absolute inset-x-0 bottom-0 p-5">
+                <span className="inline-flex items-center gap-1.5 rounded-md bg-mint-400 px-2.5 py-1 text-[11px] font-bold text-brand-950">
+                  <BadgeCheck className="size-3.5" strokeWidth={2.4} />
+                  {t("doctorBadge")}
+                </span>
+                <p className="mt-2 font-display text-[20px] font-bold text-white">
+                  {tx(lead.name, locale)}
+                </p>
+                <p className="text-[13px] font-semibold text-mint-300">
+                  {tx(lead.title, locale)}
+                </p>
+              </div>
             </div>
-            <div className="grid grid-cols-3 divide-x divide-white/8">
-              {stats.map((s, i) => (
-                <div key={i} className="px-3 py-6 text-center">
-                  <p className="font-display text-[clamp(1.5rem,5vw,2rem)] font-bold leading-none text-white">
-                    <CountUp value={s.value} />
-                  </p>
-                  <p className="mt-2 text-[11px] font-semibold leading-tight text-ink-300">
-                    {s.label}
-                  </p>
-                </div>
-              ))}
-            </div>
-          </div>
-        </div>
+          </Link>
+        )}
       </div>
     </section>
   );

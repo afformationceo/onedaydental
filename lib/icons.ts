@@ -13,6 +13,8 @@ import {
   TrainFront,
   Microscope,
   Circle,
+  Gem,
+  Sun,
   type LucideIcon,
 } from "lucide-react";
 
@@ -38,6 +40,8 @@ const REGISTRY: Record<string, LucideIcon> = {
   BadgePercent,
   TrainFront,
   Microscope,
+  Gem,
+  Sun,
 };
 
 export function getIcon(name: string, fallback: LucideIcon = Circle): LucideIcon {

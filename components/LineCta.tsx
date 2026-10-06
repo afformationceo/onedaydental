@@ -7,6 +7,7 @@ import { lineUrl } from "@/lib/config";
 import { trackConsultClick } from "@/lib/track";
 import type { Locale } from "@/lib/types";
 import { cn } from "@/lib/cn";
+import { BUTTON_BASE, BUTTON_SIZE, BUTTON_VARIANT } from "@/lib/button-styles";
 
 /**
  * 단일 회수 경로(LINE)용 재사용 CTA. (브리프 §5 — 헤더·본문·sticky 모두 LINE으로 통일)
@@ -30,28 +31,13 @@ export default function LineCta({
 }) {
   const locale = useLocale() as Locale;
 
-  const styles: Record<string, string> = {
-    // 민트 — 다크 히어로/CTA 배경 위 1순위 버튼
-    solid:
-      "bg-mint-400 text-brand-950 shadow-[0_8px_30px_-8px] shadow-mint-400/60 hover:bg-mint-300",
-    // 라인 브랜드 그린 — "加 LINE" 직관적 인지
-    line: "bg-[#06C755] text-white shadow-md hover:shadow-lg",
-    // 보조(투명) — 다크 배경 위 세컨더리
-    outline:
-      "border border-white/20 bg-white/5 text-white backdrop-blur-md hover:border-mint-400/50 hover:bg-white/10",
-  };
-
   return (
     <a
       href={lineUrl}
       target="_blank"
       rel="noopener noreferrer"
       onClick={() => trackConsultClick({ channel: "line", treatment, locale, placement })}
-      className={cn(
-        "group inline-flex items-center justify-center gap-2 rounded-lg px-6 py-3.5 text-sm font-bold transition active:scale-95",
-        styles[variant],
-        className,
-      )}
+      className={cn(BUTTON_BASE, BUTTON_SIZE.md, BUTTON_VARIANT[variant], className)}
     >
       <SiLine className="size-[18px]" />
       {label}

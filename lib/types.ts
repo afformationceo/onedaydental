@@ -27,6 +27,7 @@ export interface Treatment {
   category: TreatmentCategoryId;
   name: I18nText;
   tagline: I18nText;
+  hook: I18nText; // 후킹용 질문형 제목 ("라미네이트 찾으시나요?")
   description: I18nText;
   duration: I18nText; // 시술 시간
   recovery: I18nText; // 회복 기간

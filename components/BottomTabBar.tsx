@@ -2,7 +2,7 @@
 
 import { useLocale, useTranslations } from "next-intl";
 import { Link, usePathname } from "@/i18n/navigation";
-import { Home, Smile, Star, Receipt } from "lucide-react";
+import { Home, Smile, Newspaper, Receipt } from "lucide-react";
 import { SiLine } from "react-icons/si";
 import { lineUrl } from "@/lib/config";
 import { trackConsultClick } from "@/lib/track";
@@ -10,19 +10,20 @@ import type { Locale } from "@/lib/types";
 import { cn } from "@/lib/cn";
 
 type Tab = {
-  href: "/" | "/treatments" | "/reviews" | "/prices";
+  href: "/" | "/treatments" | "/blog" | "/prices";
   key: string;
   Icon: typeof Home;
 };
 
 // 단일 회수 경로(브리프 §5): 중앙 primary 탭 = 加 LINE.
-// 폼으로 가던 '預約' 탭을 제거하고, 좌2(首頁·診療) / 중앙(LINE) / 우2(心得·費用) 구성.
+// 폼으로 가던 '預約' 탭을 제거하고, 좌2(首頁·診療) / 중앙(LINE) / 우2(部落格·費用) 구성.
+// '心得'(후기) 탭은 메뉴 자체가 불필요하다는 요청으로 제거 — 部落格로 대체.
 const LEFT: Tab[] = [
   { href: "/", key: "home", Icon: Home },
   { href: "/treatments", key: "treatments", Icon: Smile },
 ];
 const RIGHT: Tab[] = [
-  { href: "/reviews", key: "reviews", Icon: Star },
+  { href: "/blog", key: "blog", Icon: Newspaper },
   { href: "/prices", key: "prices", Icon: Receipt },
 ];
 
