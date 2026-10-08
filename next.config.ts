@@ -17,6 +17,13 @@ const nextConfig: NextConfig = {
       { protocol: "https", hostname: "i.ytimg.com" },
     ],
   },
+  // 옛 /reviews 페이지는 홈 #reviews 섹션으로 통합됨(72441cf) — 색인·외부 링크 404 방지.
+  async redirects() {
+    return [
+      { source: "/reviews", destination: "/#reviews", permanent: true },
+      { source: "/ko/reviews", destination: "/ko#reviews", permanent: true },
+    ];
+  },
   async headers() {
     const csp = [
       "default-src 'self'",

@@ -39,6 +39,10 @@ export interface BlogFrontmatter {
   publishedAt: string; // YYYY-MM-DD
   updatedAt?: string; // YYYY-MM-DD
   author?: string;
+  /** 의학 감수 — {id,name,title,profile_url} 또는 이름 문자열. 없으면 화면·JSON-LD 칸 숨김. */
+  reviewer?: string | { id?: string; name?: string; title?: string; profile_url?: string };
+  /** 편집 표기(예: 해외환자팀 편집). 없으면 숨김. */
+  editor?: string;
   /** AEO 핵심 — FAQPage JSON-LD 로 방출되어 AI 검색/리치결과에 잡힌다. */
   faq?: BlogFaq[];
   /** 내부 상호링크 — 관련 시술 slug (clinic.treatments.slug). */

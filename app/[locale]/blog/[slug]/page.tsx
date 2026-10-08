@@ -24,6 +24,7 @@ import { mdxComponents } from "@/components/blog/mdx";
 import ChannelHub from "@/components/blog/ChannelHub";
 import BlogJsonLd from "@/components/blog/BlogJsonLd";
 import BlogCard from "@/components/blog/BlogCard";
+import { resolveAuthorDoctor, resolveReviewer, resolveEditor, type BylinePerson } from "@/lib/byline";
 
 // 예약 발행: ISR 로 매시간 재검증 + dynamicParams 로 공개일이 된 글을
 // 온디맨드 렌더(재배포 불필요). 미공개 글은 isLive 게이트로 404.
@@ -62,11 +63,14 @@ export async function generateMetadata({
   };
 }
 
-const UI: Record<Locale, { back: string; updated: string; read: string; faqTitle: string; relTreat: string; relPost: string; hubTitle: string }> = {
+const UI: Record<Locale, { back: string; updated: string; read: string; author: string; reviewer: string; editor: string; faqTitle: string; relTreat: string; relPost: string; hubTitle: string }> = {
   "zh-TW": {
     back: "返回專欄",
     updated: "更新於",
     read: "分鐘閱讀",
+    author: "作者",
+    reviewer: "醫學審閱",
+    editor: "編輯",
     faqTitle: "常見問題",
     relTreat: "相關療程",
     relPost: "延伸閱讀",
@@ -76,6 +80,9 @@ const UI: Record<Locale, { back: string; updated: string; read: string; faqTitle
     back: "블로그로",
     updated: "수정일",
     read: "분 읽기",
+    author: "작성",
+    reviewer: "의학 감수",
+    editor: "편집",
     faqTitle: "자주 묻는 질문",
     relTreat: "관련 시술",
     relPost: "함께 보기",
@@ -94,6 +101,11 @@ export default async function BlogPostPage({
   const post = getPostBySlug(locale, slug);
   if (!post || !isLive(post.publishedAt)) notFound();
   const ui = UI[locale];
+
+  // 바이라인(E-E-A-T) — 값이 있는 칸만 노출. 브랜드 author("ONEDAY")·reviewer/editor 없는 기존 글은 그대로.
+  const authorDoctor = resolveAuthorDoctor(post.author, locale);
+  const reviewer = resolveReviewer(post.reviewer, locale);
+  const editor = resolveEditor(post.editor);
 
   const canonical = `${SITE_URL}${locale === routing.defaultLocale ? "" : `/${locale}`}/blog/${slug}`;
 
@@ -143,6 +155,18 @@ export default async function BlogPostPage({
               <Clock className="size-3.5" /> {post.readingMinutes} {ui.read}
             </span>
           </div>
+          {(authorDoctor || reviewer || editor) && (
+            <dl className="mt-3 flex flex-wrap items-center gap-x-4 gap-y-1.5 text-[12.5px] text-ink-500">
+              {authorDoctor && <BylineItem label={ui.author} person={authorDoctor} />}
+              {reviewer && <BylineItem label={ui.reviewer} person={reviewer} />}
+              {editor && (
+                <div className="inline-flex items-center gap-1.5">
+                  <dt className="font-semibold text-ink-400">{ui.editor}</dt>
+                  <dd>{editor}</dd>
+                </div>
+              )}
+            </dl>
+          )}
         </header>
 
         {/* Cover */}
@@ -234,5 +258,30 @@ export default async function BlogPostPage({
         )}
       </article>
     </>
+  );
+}
+
+function BylineItem({ label, person }: { label: string; person: BylinePerson }) {
+  const text = person.title ? `${person.name} ${person.title}` : person.name;
+  const isInternal = person.url?.startsWith("/");
+  return (
+    <div className="inline-flex items-center gap-1.5">
+      <dt className="font-semibold text-ink-400">{label}</dt>
+      <dd>
+        {person.url ? (
+          isInternal ? (
+            <Link href={person.url} className="font-semibold text-ink-700 underline-offset-2 hover:text-brand-700 hover:underline">
+              {text}
+            </Link>
+          ) : (
+            <a href={person.url} className="font-semibold text-ink-700 underline-offset-2 hover:text-brand-700 hover:underline">
+              {text}
+            </a>
+          )
+        ) : (
+          <span className="font-semibold text-ink-700">{text}</span>
+        )}
+      </dd>
+    </div>
   );
 }
