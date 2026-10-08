@@ -124,11 +124,11 @@ export default async function BlogPostPage({
     <>
       <BlogJsonLd post={post} locale={locale} url={canonical} />
 
-      <article className="mx-auto max-w-3xl px-5 pb-16 pt-6 lg:px-0">
+      <article className="mx-auto max-w-2xl px-5 pb-16 pt-6 lg:px-0">
         {/* Breadcrumb / back */}
         <Link
           href="/blog"
-          className="inline-flex items-center gap-1.5 text-[13px] font-semibold text-ink-500 transition hover:text-brand-700"
+          className="inline-flex min-h-[44px] items-center gap-1.5 text-[13px] font-semibold text-ink-500 transition hover:text-brand-700"
         >
           <ArrowLeft className="size-4" /> {ui.back}
         </Link>
@@ -202,11 +202,11 @@ export default async function BlogPostPage({
                   key={i}
                   className="group border-b border-ink-100 bg-surface px-5 py-1 transition last:border-b-0 open:bg-surface-soft"
                 >
-                  <summary className="flex cursor-pointer list-none items-center justify-between gap-3 py-4 text-[14.5px] font-bold text-ink-900">
+                  <summary className="flex min-h-[44px] cursor-pointer list-none items-center justify-between gap-3 py-4 text-[15px] font-bold text-ink-900">
                     {f.q}
                     <ChevronDown className="size-5 shrink-0 text-ink-400 transition group-open:rotate-180 group-open:text-mint-500" />
                   </summary>
-                  <p className="pb-5 text-[14px] leading-relaxed text-ink-600">{f.a}</p>
+                  <p className="pb-5 text-[15px] leading-relaxed text-ink-600">{f.a}</p>
                 </details>
               ))}
             </div>
