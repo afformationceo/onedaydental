@@ -108,12 +108,16 @@
     "onelabBadge": "當日完成的依據",
     "hallsTitle": "江南3館"
   },
+  "about": {
+    "metaDescription": "韓國oneday牙科由金鎮煥院長主理，江南3館運營、自家ONE LAB數位牙技所、中文翻譯全程常駐。看診動線、醫師資歷與設備環境一次了解，歡迎加LINE諮詢。"
+  },
   "categories": {
     "kicker": "TREATMENTS",
     "title": "診療項目",
     "subtitle": "以牙齒美白・陶瓷貼片為主的美學治療，植牙・矯正亦一應俱全",
     "viewAll": "查看所有診療",
-    "viewDetail": "了解詳情"
+    "viewDetail": "了解詳情",
+    "metaDescription": "韓國oneday牙科診療項目總覽，涵蓋植牙、牙齒矯正、陶瓷貼片、牙齒美白等美學與重建治療。江南3館由專責醫師依您的口腔狀況建議合適方案，歡迎加LINE諮詢。"
   },
   "doctors": {
     "kicker": "MEDICAL TEAM",
@@ -132,7 +136,8 @@
     "unitMan": "萬韓元",
     "approx": "約",
     "note": "表列費用以萬韓元（₩10,000）為單位。NT$ 為依匯率之概略換算，實際支付金額可能不同。美學項目未含稅（VAT 另計）。本院事前透明公開外國患者價格表，現場不加價、無隱藏費用。確切費用將於精密檢查後由 1:1 諮詢中為您確認。",
-    "samePrice": "明確報價・現場不加價・無隱藏費用"
+    "samePrice": "明確報價・現場不加價・無隱藏費用",
+    "metaDescription": "韓國oneday牙科費用說明：植牙、矯正、陶瓷貼片、牙齒美白等診療項目價格總覽。台灣患者與本地患者採用同一價格表，現場不加價、無隱藏費用，確切費用於精密檢查後的諮詢中確認。"
   },
   "reviews": {
     "kicker": "REAL STORIES",
@@ -221,7 +226,8 @@
     "oneMinute": "只要 1 分鐘",
     "or": "或透過",
     "scanQr": "手機掃描加入 LINE",
-    "qrAlt": "韓國oneday牙科 官方 LINE QR Code"
+    "qrAlt": "韓國oneday牙科 官方 LINE QR Code",
+    "metaDescription": "想諮詢韓國oneday牙科？用台灣最常用的LINE直接聯繫諮詢師——免填表、免留電話，中文客服全程常駐，1分鐘就能開始免費諮詢，了解植牙、矯正或美白方案。"
   },
   "trust": {
     "samePrice": "透明公開的價格表",

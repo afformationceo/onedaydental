@@ -13,7 +13,12 @@ export async function generateMetadata({
 }): Promise<Metadata> {
   const { locale } = await params;
   const t = await getTranslations({ locale, namespace: "prices" });
-  return buildMetadata({ locale: locale as Locale, path: "/prices", title: t("title") });
+  return buildMetadata({
+    locale: locale as Locale,
+    path: "/prices",
+    title: t("title"),
+    description: t("metaDescription"),
+  });
 }
 
 export default async function PricesPage({
@@ -28,6 +33,7 @@ export default async function PricesPage({
   return (
     <div className="mx-auto max-w-screen-2xl pb-12 pt-10 lg:px-6">
       <SectionHeader
+        as="h1"
         kicker={t("prices.kicker")}
         title={t("prices.title")}
         subtitle={t("prices.subtitle")}

@@ -21,14 +21,15 @@ const COPY: Record<Locale, { kicker: string; title: string; subtitle: string; em
     kicker: "ONEDAY 部落格",
     title: "渡韓看牙・牙齒美學 完整指南",
     subtitle:
-      "陶瓷貼片、牙齒美白、植牙到渡韓流程 — 由首爾江南 ONEDAY 牙科，為台灣患者整理的真實資訊。",
+      "陶瓷貼片、牙齒美白、植牙到渡韓流程 — 由首爾江南 ONEDAY 牙科，為台灣患者整理的真實資訊。中文翻譯全程常駐，歡迎加LINE免費諮詢。",
     empty: "專欄即將上線，敬請期待。",
     hubTitle: "想直接諮詢？",
   },
   ko: {
     kicker: "ONEDAY 블로그",
     title: "도한 치과·치아 심미 가이드",
-    subtitle: "라미네이트·미백·임플란트부터 도한 절차까지, 강남 원데이치과가 정리한 정보.",
+    subtitle:
+      "라미네이트·미백·임플란트부터 도한 절차까지, 강남 원데이치과가 정리한 정보. 중문 통역 상주, LINE으로 바로 상담 가능합니다.",
     empty: "곧 블로그가 공개됩니다.",
     hubTitle: "바로 상담하시겠어요?",
   },
@@ -62,7 +63,7 @@ export default async function BlogIndex({
 
   return (
     <div className="mx-auto max-w-5xl px-5 pb-16 pt-8 lg:px-6">
-      <SectionHeader kicker={copy.kicker} title={copy.title} subtitle={copy.subtitle} />
+      <SectionHeader as="h1" kicker={copy.kicker} title={copy.title} subtitle={copy.subtitle} />
 
       {posts.length === 0 ? (
         <div className="mt-10 grid place-items-center rounded-2xl border border-dashed border-ink-200 bg-surface-soft px-6 py-16 text-center">
