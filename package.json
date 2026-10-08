@@ -5,6 +5,7 @@
   "description": "원데이치과 — global dental-tourism landing (ko/zh-TW · 대만 타겟)",
   "scripts": {
     "dev": "next dev -p 4318",
+    "prebuild": "node scripts/gen-sitemap-lastmod.mjs",
     "build": "next build",
     "start": "next start -p 4318",
     "lint": "next lint"
