@@ -8,6 +8,14 @@ const nextConfig: NextConfig = {
   poweredByHeader: false,
   compress: true,
   outputFileTracingRoot: __dirname,
+  // 2026-10-09: sitemap.xml (revalidate 3600) reads content/blog via fs at ISR time. Without the markdown
+  // traced into the function, the build-time sitemap lists all posts (45 URLs) but every hourly regeneration
+  // on Vercel saw no posts (16 URLs = static pages only) — the audit flip-flopped between the two.
+  outputFileTracingIncludes: {
+    "/sitemap.xml": ["./content/**/*"],
+    "/[locale]/blog": ["./content/**/*"],
+    "/[locale]/blog/[slug]": ["./content/**/*"],
+  },
   images: {
     formats: ["image/avif", "image/webp"],
     remotePatterns: [
