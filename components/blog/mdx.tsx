@@ -45,7 +45,7 @@ export function Figure({
         />
       </div>
       {caption && (
-        <figcaption className="mt-2 text-center text-[12.5px] text-ink-400">
+        <figcaption className="mt-2 text-center text-[13px] text-ink-500">
           {caption}
         </figcaption>
       )}
@@ -72,7 +72,7 @@ export function Callout({
   return (
     <div className={cn("my-6 flex gap-3 rounded-xl border p-4", map.ring)}>
       <Icon className={cn("mt-0.5 size-5 shrink-0", map.ic)} />
-      <div className="min-w-0 text-[14px] leading-relaxed text-ink-700">
+      <div className="min-w-0 text-[15px] leading-relaxed text-ink-700">
         {title && <p className="mb-1 font-bold text-ink-900">{title}</p>}
         {children}
       </div>
@@ -90,7 +90,7 @@ export function Step({ title, children }: { title: string; children?: ReactNode 
       <div className="min-w-0">
         <p className="text-[14.5px] font-bold text-ink-900">{title}</p>
         {children && (
-          <div className="mt-1 text-[13.5px] leading-relaxed text-ink-600">{children}</div>
+          <div className="mt-1 text-[15px] leading-relaxed text-ink-600">{children}</div>
         )}
       </div>
     </li>
@@ -139,7 +139,7 @@ function H3(props: ComponentProps<"h3">) {
   );
 }
 function P(props: ComponentProps<"p">) {
-  return <p className="mt-4 text-[15px] leading-[1.85] text-ink-700" {...props} />;
+  return <p className="mt-4 text-[16px] leading-[1.85] text-ink-700" {...props} />;
 }
 function A({ href = "#", ...rest }: ComponentProps<"a">) {
   const isInternal = href.startsWith("/") && !href.startsWith("//");
@@ -158,7 +158,7 @@ function OL(props: ComponentProps<"ol">) {
 function LI({ children, ...rest }: ComponentProps<"li">) {
   return (
     <li
-      className="flex gap-2 text-[15px] leading-relaxed text-ink-700 [ol_&]:list-item [ol_&]:pl-1"
+      className="flex gap-2 text-[16px] leading-relaxed text-ink-700 [ol_&]:list-item [ol_&]:pl-1"
       {...rest}
     >
       <Check className="mt-1 size-4 shrink-0 text-mint-500 [ol_&]:hidden" strokeWidth={3} />
@@ -169,7 +169,7 @@ function LI({ children, ...rest }: ComponentProps<"li">) {
 function Blockquote(props: ComponentProps<"blockquote">) {
   return (
     <blockquote
-      className="my-6 rounded-r-xl border-l-4 border-brand-300 bg-surface-soft py-3 pl-5 pr-4 text-[15px] font-medium italic leading-relaxed text-ink-700"
+      className="my-6 rounded-r-xl border-l-4 border-brand-300 bg-surface-soft py-3 pl-5 pr-4 text-[16px] font-medium italic leading-relaxed text-ink-700"
       {...props}
     />
   );
@@ -183,7 +183,7 @@ function HR() {
 function Table(props: ComponentProps<"table">) {
   return (
     <div className="my-6 overflow-x-auto rounded-xl border border-ink-100">
-      <table className="w-full border-collapse text-[13.5px]" {...props} />
+      <table className="w-full border-collapse text-[14px]" {...props} />
     </div>
   );
 }

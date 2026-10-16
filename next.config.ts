@@ -8,6 +8,14 @@ const nextConfig: NextConfig = {
   poweredByHeader: false,
   compress: true,
   outputFileTracingRoot: __dirname,
+  // 2026-10-09: sitemap.xml (revalidate 3600) reads content/blog via fs at ISR time. Without the markdown
+  // traced into the function, the build-time sitemap lists all posts (45 URLs) but every hourly regeneration
+  // on Vercel saw no posts (16 URLs = static pages only) — the audit flip-flopped between the two.
+  outputFileTracingIncludes: {
+    "/sitemap.xml": ["./content/**/*"],
+    "/[locale]/blog": ["./content/**/*"],
+    "/[locale]/blog/[slug]": ["./content/**/*"],
+  },
   images: {
     formats: ["image/avif", "image/webp"],
     remotePatterns: [
@@ -16,6 +24,13 @@ const nextConfig: NextConfig = {
       { protocol: "https", hostname: "**.fbcdn.net" },
       { protocol: "https", hostname: "i.ytimg.com" },
     ],
+  },
+  // 옛 /reviews 페이지는 홈 #reviews 섹션으로 통합됨(72441cf) — 색인·외부 링크 404 방지.
+  async redirects() {
+    return [
+      { source: "/reviews", destination: "/#reviews", permanent: true },
+      { source: "/ko/reviews", destination: "/ko#reviews", permanent: true },
+    ];
   },
   async headers() {
     const csp = [
