@@ -5,6 +5,7 @@ import { Link } from "@/i18n/navigation";
 import { getClinic, getTreatmentBySlug, getTreatmentDetail } from "@/lib/clinic";
 import { tx } from "@/lib/i18n-text";
 import { buildMetadata } from "@/lib/seo";
+import { SITE_URL } from "@/lib/config";
 import { routing } from "@/i18n/routing";
 import type { Locale } from "@/lib/types";
 import { Clock, Activity, Check, ArrowLeft, ChevronDown, HelpCircle } from "lucide-react";
@@ -14,6 +15,7 @@ import TreatmentImage from "@/components/TreatmentImage";
 import { CATEGORY_ICON } from "@/components/TreatmentCard";
 import { getAllPosts } from "@/lib/blog";
 import BlogCard from "@/components/blog/BlogCard";
+import TreatmentJsonLd from "@/components/TreatmentJsonLd";
 
 export function generateStaticParams() {
   const clinic = getClinic();
@@ -58,9 +60,13 @@ export default async function TreatmentDetail({
   const relatedPosts = getAllPosts(locale)
     .filter((p) => p.relatedTreatments?.includes(slug))
     .slice(0, 3);
+  const canonical = `${SITE_URL}${locale === routing.defaultLocale ? "" : `/${locale}`}/treatments/${slug}`;
 
   return (
     <article className="mx-auto max-w-5xl pb-12 lg:px-6">
+      {/* author가 있는 치료만 구조화데이터 방출 — 이번 작업은 oneday-implant 1곳만 대상이라
+          다른 시술 페이지(treatment_detail.json에 author 미설정)는 그대로 둔다. */}
+      {detail?.author && <TreatmentJsonLd treatment={tr} detail={detail} locale={locale} url={canonical} />}
       {/* Hero — navy framed, 더 크고 가시적으로 */}
       <div className="relative aspect-[4/3] max-h-[480px] w-full overflow-hidden sm:aspect-[16/9] lg:mt-6 lg:rounded-xl">
         <TreatmentImage

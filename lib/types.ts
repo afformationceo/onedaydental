@@ -47,6 +47,12 @@ export interface TreatmentDetail {
   lead: I18nText;
   sections: TreatmentDetailSection[];
   faq: TreatmentFaq[];
+  /** 작성 의사 — database/clinic.json doctors[].id 또는 이름. 없으면 구조화데이터에서 브랜드 표기로 대체. */
+  author?: string;
+  /** 의학 감수 — doctors[].id/이름 문자열. 없으면 구조화데이터·화면 모두 숨김. */
+  reviewer?: string;
+  /** 최종 수정일 (YYYY-MM-DD) — dateModified/lastReviewed. */
+  updatedAt?: string;
 }
 export type TreatmentDetailMap = Record<string, TreatmentDetail>;
 
