@@ -14,6 +14,9 @@ import TreatmentImage from "@/components/TreatmentImage";
 import { CATEGORY_ICON } from "@/components/TreatmentCard";
 import { getAllPosts } from "@/lib/blog";
 import BlogCard from "@/components/blog/BlogCard";
+import TreatmentJsonLd from "@/components/TreatmentJsonLd";
+import { resolveAuthorDoctor } from "@/lib/byline";
+import { SITE_URL } from "@/lib/config";
 
 export function generateStaticParams() {
   const clinic = getClinic();
@@ -58,9 +61,23 @@ export default async function TreatmentDetail({
   const relatedPosts = getAllPosts(locale)
     .filter((p) => p.relatedTreatments?.includes(slug))
     .slice(0, 3);
+  const url = `${SITE_URL}${locale === routing.defaultLocale ? "" : `/${locale}`}/treatments/${slug}`;
+  const byAuthor = resolveAuthorDoctor(detail?.author, locale);
+  const byReviewer = resolveAuthorDoctor(detail?.reviewer, locale);
+  const isKo = locale === "ko";
 
   return (
     <article className="mx-auto max-w-5xl pb-12 lg:px-6">
+      {detail && (
+        <TreatmentJsonLd
+          detail={detail}
+          locale={locale}
+          url={url}
+          name={name}
+          description={tx(detail.lead, locale)}
+          faq={detail.faq.map((f) => ({ q: tx(f.q, locale), a: tx(f.a, locale) }))}
+        />
+      )}
       {/* Hero — navy framed, 더 크고 가시적으로 */}
       <div className="relative aspect-[4/3] max-h-[480px] w-full overflow-hidden sm:aspect-[16/9] lg:mt-6 lg:rounded-xl">
         <TreatmentImage
@@ -114,6 +131,28 @@ export default async function TreatmentDetail({
         {detail && (
           <p className="mt-3 text-[15px] leading-relaxed text-ink-600">
             {tx(tr.description, locale)}
+          </p>
+        )}
+        {detail && (byAuthor || byReviewer || detail.updatedAt) && (
+          <p className="mt-3 text-[12.5px] text-ink-500">
+            {byAuthor && (
+              <span>
+                {isKo ? "작성" : "撰文"}：{byAuthor.name} {byAuthor.title}
+              </span>
+            )}
+            {byReviewer && (
+              <span>
+                {byAuthor ? " · " : ""}
+                {isKo ? "의료 검수" : "醫療審閱"}：{byReviewer.name} {byReviewer.title}
+              </span>
+            )}
+            {detail.updatedAt && (
+              <span>
+                {byAuthor || byReviewer ? " · " : ""}
+                {isKo ? "최종 수정" : "最後更新"}：
+                <time dateTime={detail.updatedAt}>{detail.updatedAt}</time>
+              </span>
+            )}
           </p>
         )}
         <ul className="mt-5 flex flex-wrap gap-2.5">

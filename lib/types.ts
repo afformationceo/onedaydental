@@ -47,6 +47,11 @@ export interface TreatmentDetail {
   lead: I18nText;
   sections: TreatmentDetailSection[];
   faq: TreatmentFaq[];
+  /** 선택 — 의료진 id(clinic.json doctors). 있으면 본문 바이라인·JSON-LD 에 표기. */
+  author?: string;
+  reviewer?: string;
+  /** 선택 — 최종 수정일 YYYY-MM-DD */
+  updatedAt?: string;
 }
 export type TreatmentDetailMap = Record<string, TreatmentDetail>;
 
