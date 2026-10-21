@@ -1,11 +1,11 @@
-import Image from "next/image";
 import { getLocale, getTranslations } from "next-intl/server";
 import { Link } from "@/i18n/navigation";
 import { getClinic } from "@/lib/clinic";
 import { tx } from "@/lib/i18n-text";
 import type { Locale } from "@/lib/types";
-import { BadgeCheck, ArrowRight, Stethoscope } from "lucide-react";
+import { BadgeCheck, ArrowRight } from "lucide-react";
 import { SectionHeader } from "./Section";
+import DoctorIntroVideo from "./DoctorIntroVideo";
 
 /**
  * Authority spotlight for the lead doctor (Kim Jinhwan) — real career bullets,
@@ -28,22 +28,10 @@ export default async function DoctorAuthority() {
 
         <div className="mt-8 px-5 lg:px-0">
           <div className="bracket grid overflow-hidden rounded-xl border border-ink-100 bg-surface lg:grid-cols-[300px_1fr]">
-            {/* Photo column — navy framed, instrument feel */}
+            {/* Photo column — navy framed, instrument feel. 대표원장 소개영상(자동재생) */}
             <div className="relative aspect-[4/3] bg-brand-950 sm:aspect-[16/9] lg:aspect-auto lg:min-h-full">
-              {lead.photo ? (
-                <Image
-                  src={lead.photo}
-                  alt={name}
-                  fill
-                  sizes="(max-width: 1024px) 100vw, 300px"
-                  className="object-cover object-top opacity-90"
-                />
-              ) : (
-                <div className="grid h-full w-full place-items-center text-mint-400">
-                  <Stethoscope className="size-10" />
-                </div>
-              )}
-              <div className="tech-grid absolute inset-0 opacity-30" />
+              <DoctorIntroVideo />
+              <div className="tech-grid pointer-events-none absolute inset-0 opacity-30" />
               <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-brand-950 to-transparent p-5 lg:hidden">
                 <h3 className="font-display text-[20px] font-bold text-white">{name}</h3>
                 <p className="text-[13px] font-bold text-mint-400">{tx(lead.title, locale)}</p>
