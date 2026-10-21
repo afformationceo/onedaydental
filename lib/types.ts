@@ -81,7 +81,7 @@ export interface PriceItem {
 
 export interface Review {
   id: string;
-  platform: "instagram" | "tiktok" | "youtube";
+  platform: "instagram" | "tiktok" | "youtube" | "video"; // "video" = 자체 호스팅 mp4 (public/videos/...)
   url: string;
   country: Locale | "kr";
   rating: number; // 1-5

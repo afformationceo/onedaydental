@@ -1102,6 +1102,84 @@
         "ko": "고령 환자 당일 임플란트 사례 (원데이 상담소)",
         "zh-TW": "高齡患者當日植牙案例（ONEDAY 諮詢室）"
       }
+    },
+    {
+      "id": "influencer-laminate-1",
+      "platform": "video",
+      "url": "/videos/influencer/laminate-1.mp4",
+      "country": "tw",
+      "rating": 5,
+      "treatmentTag": "laminate",
+      "caption": {
+        "ko": "라미네이트 후기 영상",
+        "zh-TW": "陶瓷貼片心得影片"
+      },
+      "embed": true
+    },
+    {
+      "id": "influencer-laminate-2",
+      "platform": "video",
+      "url": "/videos/influencer/laminate-2.mp4",
+      "country": "tw",
+      "rating": 5,
+      "treatmentTag": "laminate",
+      "caption": {
+        "ko": "라미네이트 후기 영상",
+        "zh-TW": "陶瓷貼片心得影片"
+      },
+      "embed": true
+    },
+    {
+      "id": "influencer-laminate-3",
+      "platform": "video",
+      "url": "/videos/influencer/laminate-3.mp4",
+      "country": "tw",
+      "rating": 5,
+      "treatmentTag": "laminate",
+      "caption": {
+        "ko": "라미네이트 후기 영상",
+        "zh-TW": "陶瓷貼片心得影片"
+      },
+      "embed": true
+    },
+    {
+      "id": "influencer-whitening-1",
+      "platform": "video",
+      "url": "/videos/influencer/whitening-1.mp4",
+      "country": "tw",
+      "rating": 5,
+      "treatmentTag": "whitening",
+      "caption": {
+        "ko": "치아미백 후기 영상",
+        "zh-TW": "牙齒美白心得影片"
+      },
+      "embed": true
+    },
+    {
+      "id": "influencer-whitening-2",
+      "platform": "video",
+      "url": "/videos/influencer/whitening-2.mp4",
+      "country": "tw",
+      "rating": 5,
+      "treatmentTag": "whitening",
+      "caption": {
+        "ko": "치아미백 후기 영상",
+        "zh-TW": "牙齒美白心得影片"
+      },
+      "embed": true
+    },
+    {
+      "id": "influencer-whitening-3",
+      "platform": "video",
+      "url": "/videos/influencer/whitening-3.mp4",
+      "country": "tw",
+      "rating": 5,
+      "treatmentTag": "whitening",
+      "caption": {
+        "ko": "치아미백 후기 영상",
+        "zh-TW": "牙齒美白心得影片"
+      },
+      "embed": true
     }
   ],
   "celebrities": {

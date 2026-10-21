@@ -15,7 +15,9 @@ const MAX_GOOGLE_REVIEWS = 9;
 export default async function GlobalSocialProofBlock() {
   const { reviews, branches } = getClinic();
   const influencerItems = reviews.filter(
-    (r) => r.embed && (r.platform === "instagram" || r.platform === "youtube"),
+    (r) =>
+      r.embed &&
+      (r.platform === "instagram" || r.platform === "youtube" || r.platform === "video"),
   );
   const googleResults = await getAllGooglePlaceReviews(branches);
   const googleShown = googleResults
