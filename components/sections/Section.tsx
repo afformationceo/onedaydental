@@ -6,20 +6,23 @@ export function SectionHeader({
   title,
   subtitle,
   center,
+  as: Heading = "h2",
 }: {
   kicker?: string;
   title: string;
   subtitle?: string;
   center?: boolean;
+  /** 이 헤더가 페이지의 유일한 최상위 제목(h1)일 때만 "h1"로 지정 — 그 외엔 기본값(h2) 유지. */
+  as?: "h1" | "h2";
 }) {
   return (
     <div className={cn("px-5", center && "text-center")}>
       {kicker && (
         <span className={cn("kicker", center && "justify-center")}>{kicker}</span>
       )}
-      <h2 className="mt-3 font-display text-[clamp(1.55rem,4.5vw,2.4rem)] font-bold leading-[1.12] tracking-tight text-ink-900">
+      <Heading className="mt-3 font-display text-[clamp(1.55rem,4.5vw,2.4rem)] font-bold leading-[1.12] tracking-tight text-ink-900">
         {title}
-      </h2>
+      </Heading>
       {subtitle && (
         <p
           className={cn(

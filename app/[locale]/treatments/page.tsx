@@ -16,7 +16,12 @@ export async function generateMetadata({
 }): Promise<Metadata> {
   const { locale } = await params;
   const t = await getTranslations({ locale, namespace: "categories" });
-  return buildMetadata({ locale: locale as Locale, path: "/treatments", title: t("title") });
+  return buildMetadata({
+    locale: locale as Locale,
+    path: "/treatments",
+    title: t("title"),
+    description: t("metaDescription"),
+  });
 }
 
 export default async function TreatmentsPage({
@@ -33,6 +38,7 @@ export default async function TreatmentsPage({
   return (
     <div className="mx-auto max-w-screen-2xl pb-12 pt-10 lg:px-6">
       <SectionHeader
+        as="h1"
         kicker={t("categories.kicker")}
         title={t("categories.title")}
         subtitle={t("categories.subtitle")}
