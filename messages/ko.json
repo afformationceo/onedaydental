@@ -252,6 +252,11 @@
     "contact": "문의",
     "disclaimer": "본 웹사이트의 의료 정보는 일반적인 안내이며 전문적인 의학적 진단을 대신할 수 없습니다. 치료 효과는 개인의 구강 상태에 따라 다르며, 임플란트 등 수술은 통증・부기・감염 등 부작용을 동반할 수 있습니다."
   },
+  "socialProofFooter": {
+    "influencerTitle": "인플루언서・실제 환자 영상 후기",
+    "googleReviewsTitle": "구글맵 실제 리뷰",
+    "googleAttribution": "리뷰 데이터 제공: Google"
+  },
   "common": {
     "loading": "불러오는 중...",
     "backHome": "홈으로 돌아가기",

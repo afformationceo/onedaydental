@@ -89,6 +89,7 @@ export interface Review {
   caption?: I18nText;
   starName?: I18nText; // 연예인 실명 (스타 마퀴용)
   starRole?: I18nText; // 직업 (배우/가수 등)
+  embed?: boolean; // true면 전역 하단(인플루언서 영상) 블록에 실제 임베드로 노출
 }
 
 export interface Usp {
@@ -112,6 +113,7 @@ export interface Branch {
   mapQuery: string; // Google Maps search query (Korean, for accurate pin)
   image?: string; // representative facility photo for this hall — /facility/...
   imageAlt?: I18nText; // localized alt text for the facility photo
+  placeId?: string; // Google Place ID — set this to enable the live Google reviews block
 }
 
 /** Promotional photos provided by the clinic (e.g. celebrity visits). */

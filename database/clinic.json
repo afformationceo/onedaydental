@@ -33,6 +33,7 @@
         "zh-TW": "陶瓷貼片 · 植牙"
       },
       "mapQuery": "원데이치과 제1관 강남구 봉은사로2길 31 W빌딩 3층",
+      "placeId": "",
       "image": "/facility/hall1/hall1-01.jpg",
       "imageAlt": {
         "ko": "원데이치과 제1관 스마일 디자인센터 — 구강스캐너·원캐드 디지털 장비",
@@ -55,6 +56,7 @@
         "zh-TW": "植牙"
       },
       "mapQuery": "원데이치과 제2관 강남구 강남대로 438 스타플렉스 13층",
+      "placeId": "",
       "image": "/facility/hall2/hall2-01.jpg",
       "imageAlt": {
         "ko": "원데이치과 제2관 라운지 대기 공간",
@@ -77,6 +79,7 @@
         "zh-TW": "其他診療（齒列矯正 · 牙齒美白 等）"
       },
       "mapQuery": "원데이치과 제3관 강남구 강남대로 442 흥국화재빌딩 8층",
+      "placeId": "",
       "image": "/facility/hall3/hall3-02.jpg",
       "imageAlt": {
         "ko": "원데이치과 제3관 교정센터 라운지",
