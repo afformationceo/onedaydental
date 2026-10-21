@@ -33,6 +33,7 @@
         "zh-TW": "陶瓷貼片 · 植牙"
       },
       "mapQuery": "원데이치과 제1관 강남구 봉은사로2길 31 W빌딩 3층",
+      "placeId": "",
       "image": "/facility/hall1/hall1-01.jpg",
       "imageAlt": {
         "ko": "원데이치과 제1관 스마일 디자인센터 — 구강스캐너·원캐드 디지털 장비",
@@ -55,6 +56,7 @@
         "zh-TW": "植牙"
       },
       "mapQuery": "원데이치과 제2관 강남구 강남대로 438 스타플렉스 13층",
+      "placeId": "",
       "image": "/facility/hall2/hall2-01.jpg",
       "imageAlt": {
         "ko": "원데이치과 제2관 라운지 대기 공간",
@@ -77,6 +79,7 @@
         "zh-TW": "其他診療（齒列矯正 · 牙齒美白 等）"
       },
       "mapQuery": "원데이치과 제3관 강남구 강남대로 442 흥국화재빌딩 8층",
+      "placeId": "",
       "image": "/facility/hall3/hall3-02.jpg",
       "imageAlt": {
         "ko": "원데이치과 제3관 교정센터 라운지",
@@ -1099,6 +1102,84 @@
         "ko": "고령 환자 당일 임플란트 사례 (원데이 상담소)",
         "zh-TW": "高齡患者當日植牙案例（ONEDAY 諮詢室）"
       }
+    },
+    {
+      "id": "influencer-laminate-1",
+      "platform": "video",
+      "url": "/videos/influencer/laminate-1.mp4",
+      "country": "tw",
+      "rating": 5,
+      "treatmentTag": "laminate",
+      "caption": {
+        "ko": "라미네이트 후기 영상",
+        "zh-TW": "陶瓷貼片心得影片"
+      },
+      "embed": true
+    },
+    {
+      "id": "influencer-laminate-2",
+      "platform": "video",
+      "url": "/videos/influencer/laminate-2.mp4",
+      "country": "tw",
+      "rating": 5,
+      "treatmentTag": "laminate",
+      "caption": {
+        "ko": "라미네이트 후기 영상",
+        "zh-TW": "陶瓷貼片心得影片"
+      },
+      "embed": true
+    },
+    {
+      "id": "influencer-laminate-3",
+      "platform": "video",
+      "url": "/videos/influencer/laminate-3.mp4",
+      "country": "tw",
+      "rating": 5,
+      "treatmentTag": "laminate",
+      "caption": {
+        "ko": "라미네이트 후기 영상",
+        "zh-TW": "陶瓷貼片心得影片"
+      },
+      "embed": true
+    },
+    {
+      "id": "influencer-whitening-1",
+      "platform": "video",
+      "url": "/videos/influencer/whitening-1.mp4",
+      "country": "tw",
+      "rating": 5,
+      "treatmentTag": "whitening",
+      "caption": {
+        "ko": "치아미백 후기 영상",
+        "zh-TW": "牙齒美白心得影片"
+      },
+      "embed": true
+    },
+    {
+      "id": "influencer-whitening-2",
+      "platform": "video",
+      "url": "/videos/influencer/whitening-2.mp4",
+      "country": "tw",
+      "rating": 5,
+      "treatmentTag": "whitening",
+      "caption": {
+        "ko": "치아미백 후기 영상",
+        "zh-TW": "牙齒美白心得影片"
+      },
+      "embed": true
+    },
+    {
+      "id": "influencer-whitening-3",
+      "platform": "video",
+      "url": "/videos/influencer/whitening-3.mp4",
+      "country": "tw",
+      "rating": 5,
+      "treatmentTag": "whitening",
+      "caption": {
+        "ko": "치아미백 후기 영상",
+        "zh-TW": "牙齒美白心得影片"
+      },
+      "embed": true
     }
   ],
   "celebrities": {

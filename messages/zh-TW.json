@@ -252,6 +252,11 @@
     "contact": "聯絡我們",
     "disclaimer": "本網站之醫療資訊僅為一般說明，不能取代專業醫學診斷。療程效果因個人口腔狀況而異，植牙等手術可能伴隨疼痛、腫脹、感染等不良反應。"
   },
+  "socialProofFooter": {
+    "influencerTitle": "網紅・患者真實影片心得",
+    "googleReviewsTitle": "Google 地圖真實評論",
+    "googleAttribution": "評論資料由 Google 提供"
+  },
   "common": {
     "loading": "載入中...",
     "backHome": "返回首頁",

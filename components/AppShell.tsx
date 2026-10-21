@@ -4,6 +4,7 @@ import { getClinic } from "@/lib/clinic";
 import { tx } from "@/lib/i18n-text";
 import type { Locale } from "@/lib/types";
 import Header from "./Header";
+import GlobalSocialProofBlock from "./GlobalSocialProofBlock";
 import Footer from "./Footer";
 import BottomTabBar from "./BottomTabBar";
 import FloatingCTA from "./FloatingCTA";
@@ -30,6 +31,7 @@ export default async function AppShell({ children }: { children: ReactNode }) {
       <PromoBar />
       <Header treatmentCats={treatmentCats} />
       <main className="mx-auto w-full max-w-screen-2xl flex-1">{children}</main>
+      <GlobalSocialProofBlock />
       <Footer />
       <BottomTabBar />
       <FloatingCTA />
