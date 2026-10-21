@@ -30,6 +30,27 @@ const nextConfig: NextConfig = {
     return [
       { source: "/reviews", destination: "/#reviews", permanent: true },
       { source: "/ko/reviews", destination: "/ko#reviews", permanent: true },
+      // 2026-10-19: dcard/ptt 금지 키워드 제거로 슬러그 변경 — 이미 라이브였던 URL 404 방지.
+      {
+        source: "/blog/korea-veneers-dcard-review-checklist",
+        destination: "/blog/korea-veneers-review-checklist",
+        permanent: true,
+      },
+      {
+        source: "/ko/blog/korea-veneers-dcard-review-checklist",
+        destination: "/ko/blog/korea-veneers-review-checklist",
+        permanent: true,
+      },
+      {
+        source: "/blog/implant-ptt-stories-consult-day-order",
+        destination: "/blog/implant-stories-consult-day-order",
+        permanent: true,
+      },
+      {
+        source: "/ko/blog/implant-ptt-stories-consult-day-order",
+        destination: "/ko/blog/implant-stories-consult-day-order",
+        permanent: true,
+      },
     ];
   },
   async headers() {
