@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { Noto_Sans_TC } from "next/font/google";
+import Script from "next/script";
 import { NextIntlClientProvider, hasLocale } from "next-intl";
 import { setRequestLocale } from "next-intl/server";
 import { routing, localeMeta, type Locale } from "@/i18n/routing";
@@ -83,6 +84,7 @@ export default async function LocaleLayout({
           <JsonLd locale={l} />
           <AppShell>{children}</AppShell>
           <Analytics />
+          <Script src="/af-track.js" strategy="afterInteractive" />
         </NextIntlClientProvider>
       </body>
     </html>
