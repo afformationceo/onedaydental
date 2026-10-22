@@ -32,6 +32,10 @@ export interface BlogFaq {
 export interface BlogFrontmatter {
   title: string;
   description: string;
+  /** 검색결과(title/og/twitter) 전용 제목 — 있으면 사이트명 접미사 없이 그대로 사용. H1·JSON-LD 는 title 유지. */
+  metaTitle?: string;
+  /** 검색결과(meta/og/twitter) 전용 설명문. 없으면 description. */
+  metaDescription?: string;
   category: BlogCategory;
   keywords: string[];
   cover: string; // /blog/... (public 기준 절대경로)

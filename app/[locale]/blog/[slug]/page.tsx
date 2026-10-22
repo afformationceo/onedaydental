@@ -47,14 +47,22 @@ export async function generateMetadata({
     locale: locale as Locale,
     path: `/blog/${slug}`,
     title: post.title,
-    description: post.description,
+    description: post.metaDescription ?? post.description,
   });
+  // 메타 전용 제목이 있으면 사이트명 접미사 없이 그대로 노출 (H1 은 post.title 유지)
+  const seoTitle = post.metaTitle ?? (meta.title as string);
+  const seoDesc = post.metaDescription ?? post.description;
   // 글 고유 OG 이미지 + Article 타입 + 키워드 보강
   return {
     ...meta,
+    title: seoTitle,
+    description: seoDesc,
     keywords: post.keywords,
+    twitter: { ...meta.twitter, title: seoTitle, description: seoDesc },
     openGraph: {
       ...meta.openGraph,
+      title: seoTitle,
+      description: seoDesc,
       type: "article",
       images: [{ url: `${SITE_URL}${post.cover}`, width: 1200, height: 630 }],
       publishedTime: post.publishedAt,
