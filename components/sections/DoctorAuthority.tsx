@@ -27,32 +27,23 @@ export default async function DoctorAuthority() {
         <SectionHeader kicker={t("kicker")} title={t("title")} subtitle={t("subtitle")} />
 
         <div className="mt-8 px-5 lg:px-0">
-          <div className="bracket grid overflow-hidden rounded-xl border border-ink-100 bg-surface lg:grid-cols-[300px_1fr]">
-            {/* Photo column — navy framed, instrument feel. 대표원장 소개영상(자동재생) */}
-            <div className="relative aspect-[4/3] bg-brand-950 sm:aspect-[16/9] lg:aspect-auto lg:min-h-full">
+          <div className="mx-auto max-w-5xl">
+            {/* 대표원장 소개영상 — 크게, 전면에 */}
+            <div className="relative aspect-video overflow-hidden rounded-2xl bg-brand-950 shadow-xl shadow-ink-900/15 ring-1 ring-ink-100">
               <DoctorIntroVideo />
-              <div className="tech-grid pointer-events-none absolute inset-0 opacity-30" />
-              <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-brand-950 to-transparent p-5 lg:hidden">
-                <h3 className="font-display text-[20px] font-bold text-white">{name}</h3>
-                <p className="text-[13px] font-bold text-mint-400">{tx(lead.title, locale)}</p>
-              </div>
             </div>
 
-            {/* Bio column */}
-            <div className="p-6 lg:p-8">
-              <div className="hidden lg:block">
-                <h3 className="font-display text-[24px] font-bold leading-tight text-ink-900">
-                  {name}
-                </h3>
-                <p className="mt-0.5 text-[14px] font-bold text-mint-600">
-                  {tx(lead.title, locale)}
-                </p>
-              </div>
-              <p className="text-[13px] leading-relaxed text-ink-500 lg:mt-3">
+            {/* Bio */}
+            <div className="mt-8 text-center">
+              <h3 className="font-display text-[26px] font-bold leading-tight text-ink-900">
+                {name}
+              </h3>
+              <p className="mt-1 text-[14px] font-bold text-mint-600">{tx(lead.title, locale)}</p>
+              <p className="mx-auto mt-3 max-w-xl text-[13px] leading-relaxed text-ink-500">
                 {tx(lead.specialty, locale)}
               </p>
 
-              <ul className="mt-5 grid gap-2.5 border-t border-ink-100 pt-5 sm:grid-cols-2">
+              <ul className="mx-auto mt-6 grid max-w-2xl gap-2.5 border-t border-ink-100 pt-6 text-left sm:grid-cols-2">
                 {careers.map((c, i) => (
                   <li
                     key={i}
