@@ -3,11 +3,13 @@ import { getClinic } from "@/lib/clinic";
 import { tx } from "@/lib/i18n-text";
 import type { Locale } from "@/lib/types";
 import { MapPin, Clock, Phone } from "lucide-react";
+import { Link } from "@/i18n/navigation";
 import Logo from "./Logo";
 
 export default async function Footer() {
   const locale = (await getLocale()) as Locale;
   const t = await getTranslations("footer");
+  const tn = await getTranslations("nav");
   const clinic = getClinic();
 
   return (
@@ -53,7 +55,15 @@ export default async function Footer() {
           </div>
         </div>
 
-        <p className="mt-8 border-t border-white/10 pt-5 text-[11px] leading-relaxed text-ink-400">
+        <nav className="mt-8 flex flex-wrap gap-x-5 gap-y-2 text-sm">
+          {(["treatments", "prices", "blog", "reservation"] as const).map((key) => (
+            <Link key={key} href={`/${key}`} className="hover:text-white">
+              {tn(key)}
+            </Link>
+          ))}
+        </nav>
+
+        <p className="mt-5 border-t border-white/10 pt-5 text-[11px] leading-relaxed text-ink-400">
           {t("disclaimer")}
         </p>
         <p className="mt-3 text-[11px] text-ink-500">{t("rights")}</p>
