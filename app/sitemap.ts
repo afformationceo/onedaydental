@@ -1,9 +1,9 @@
 export const revalidate = 3600;
 import type { MetadataRoute } from "next";
 import { getClinic } from "@/lib/clinic";
-import { getAllPosts } from "@/lib/blog";
+import { getAllPosts, hreflangLanguages } from "@/lib/blog";
 import { SITE_URL } from "@/lib/config";
-import { routing } from "@/i18n/routing";
+import { routing, localeMeta } from "@/i18n/routing";
 import lastmodManifest from "@/lib/generated/sitemap-lastmod.json";
 
 // 매니페스트에 없는 경로(생성 스크립트를 아직 못 돌렸거나 git 조회 실패)를 위한
@@ -34,13 +34,31 @@ export default function sitemap(): MetadataRoute.Sitemap {
   }
 
   // Blog posts — public locale (zh-TW) only; ko is a noindex review build.
+  // Gap-1 hreflang: 글마다 공개된 번역 짝만 alternates 선언. 자기 하나뿐이면 생략.
   for (const post of getAllPosts(routing.defaultLocale)) {
+    const langs = hreflangLanguages(
+      post.slug,
+      SITE_URL,
+      routing.locales,
+      routing.defaultLocale,
+      (l) => localeMeta[l].htmlLang,
+    );
     entries.push({
       url: `${SITE_URL}/blog/${post.slug}`,
       lastModified: new Date(post.updatedAt ?? post.publishedAt),
       changeFrequency: "monthly",
       priority: 0.6,
+      ...(Object.keys(langs).length > 0 ? { alternates: { languages: langs } } : {}),
     });
   }
+
+  // Gap-3 저자 프로필 (/doctor/kim-jinhwan) — 공개 로케일만 등록.
+  entries.push({
+    url: `${SITE_URL}/doctor/kim-jinhwan`,
+    lastModified: lastmodFor("/doctor/kim-jinhwan"),
+    changeFrequency: "yearly",
+    priority: 0.5,
+  });
+
   return entries;
 }

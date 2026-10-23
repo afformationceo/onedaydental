@@ -151,6 +151,43 @@ export function getAllBlogParams(
   );
 }
 
+// ---------- hreflang 매핑 (SEO Gap-1) ----------
+// 가이드: SEO Starter "Tell Google about localized versions" · Web Developer Guide "다국어"
+// 같은 slug 가 각 로케일에 실제 공개된 MDX 로 존재하는지 확인해 번역 짝만 선언한다.
+// 현 상태: 블로그 글은 zh-TW 전용(ko 는 noindex 내부 리뷰 빌드) — 번역 짝이 생기면 자동 반영.
+export function getLocalesForSlug(slug: string, locales: readonly Locale[]): Locale[] {
+  return locales.filter((locale) => {
+    const post = getPostBySlug(locale, slug);
+    return post !== null && !post.draft && isLive(post.publishedAt);
+  });
+}
+
+/**
+ * 블로그 글 상세·sitemap 에 쓰이는 alternates.languages 맵.
+ * 공개된 번역 짝이 있는 로케일만 선언. 번역 짝이 없거나 자기 하나뿐이면 빈 객체 반환
+ * (호출측에서 "선언 생략" 처리). x-default = 기본 로케일(zh-TW).
+ *
+ * localePrefix: "as-needed" 라우팅에 맞춰 — zh-TW(기본)는 prefix 없음, ko 는 /ko.
+ */
+export function hreflangLanguages(
+  slug: string,
+  siteUrl: string,
+  locales: readonly Locale[],
+  defaultLocale: Locale,
+  htmlLangOf: (l: Locale) => string,
+): Record<string, string> {
+  const live = getLocalesForSlug(slug, locales);
+  if (live.length <= 1) return {}; // 번역 짝 없으면 선언 생략(사이트 전역 fallback 유지)
+  const langs: Record<string, string> = {};
+  for (const loc of live) {
+    const prefix = loc === defaultLocale ? "" : `/${loc}`;
+    langs[htmlLangOf(loc)] = `${siteUrl}${prefix}/blog/${slug}`;
+  }
+  const defaultHref = langs[htmlLangOf(defaultLocale)];
+  if (defaultHref) langs["x-default"] = defaultHref;
+  return langs;
+}
+
 /** 카테고리 표시명 (繁中 / 한국어). */
 export const CATEGORY_LABEL: Record<BlogCategory, Record<Locale, string>> = {
   guide: { "zh-TW": "渡韓看牙指南", ko: "도한 가이드" },

@@ -13,12 +13,12 @@ import {
   HelpCircle,
   ArrowRight,
 } from "lucide-react";
-import { getPostBySlug, getAllBlogParams, getAllPosts, CATEGORY_LABEL, isLive } from "@/lib/blog";
+import { getPostBySlug, getAllBlogParams, getAllPosts, CATEGORY_LABEL, isLive, hreflangLanguages } from "@/lib/blog";
 import { getClinic, getTreatmentBySlug } from "@/lib/clinic";
 import { tx } from "@/lib/i18n-text";
 import { buildMetadata } from "@/lib/seo";
 import { SITE_URL } from "@/lib/config";
-import { routing } from "@/i18n/routing";
+import { routing, localeMeta } from "@/i18n/routing";
 import type { Locale } from "@/lib/types";
 import { mdxComponents } from "@/components/blog/mdx";
 import ChannelHub from "@/components/blog/ChannelHub";
@@ -52,12 +52,28 @@ export async function generateMetadata({
   // 메타 전용 제목이 있으면 사이트명 접미사 없이 그대로 노출 (H1 은 post.title 유지)
   const seoTitle = post.metaTitle ?? (meta.title as string);
   const seoDesc = post.metaDescription ?? post.description;
+
+  // Gap-1 hreflang — 번역 짝이 실제로 공개된 로케일만 선언. 자기 하나뿐이면
+  // buildMetadata 가 넣어 둔 사이트 전역 fallback(zh-TW + x-default) 을 유지.
+  const blogLangs = hreflangLanguages(
+    slug,
+    SITE_URL,
+    routing.locales,
+    routing.defaultLocale,
+    (l) => localeMeta[l].htmlLang,
+  );
+  const alternates =
+    Object.keys(blogLangs).length > 0
+      ? { ...meta.alternates, languages: blogLangs }
+      : meta.alternates;
+
   // 글 고유 OG 이미지 + Article 타입 + 키워드 보강
   return {
     ...meta,
     title: seoTitle,
     description: seoDesc,
     keywords: post.keywords,
+    alternates,
     twitter: { ...meta.twitter, title: seoTitle, description: seoDesc },
     openGraph: {
       ...meta.openGraph,

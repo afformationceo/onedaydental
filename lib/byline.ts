@@ -13,7 +13,7 @@ import type { Locale } from "./types";
 export interface BylinePerson {
   name: string;
   title?: string;
-  /** 사이트 내부 경로(예: /about) 또는 절대 URL */
+  /** 사이트 내부 경로(예: /doctor/kim-jinhwan) 또는 절대 URL */
   url?: string;
 }
 
@@ -21,7 +21,18 @@ export type ReviewerField =
   | string
   | { id?: string; name?: string; title?: string; profile_url?: string };
 
-const DOCTOR_PROFILE_PATH = "/about";
+/**
+ * SEO Gap-3 — Google helpful content guide "Who created the content" 전용 프로필을 가진
+ * 의사 id 화이트리스트. 여기 등재된 의사만 /doctor/<id> 전용 페이지로 바이라인 URL 을 건다.
+ * 나머지는 치과 소개(/about) 페이지로 묶여 있다.
+ * 추가 의사 프로필을 만들 때 이 상수 + app/[locale]/doctor/[slug]/page.tsx PROFILE_IDS 를 함께 갱신.
+ */
+const DOCTOR_PROFILE_IDS = new Set<string>(["kim-jinhwan"]);
+const FALLBACK_PROFILE_PATH = "/about";
+
+function profilePathFor(id: string): string {
+  return DOCTOR_PROFILE_IDS.has(id) ? `/doctor/${id}` : FALLBACK_PROFILE_PATH;
+}
 
 function findDoctor(idOrName: string | undefined) {
   if (!idOrName) return null;
@@ -39,7 +50,7 @@ function findDoctor(idOrName: string | undefined) {
 export function resolveAuthorDoctor(author: string | undefined, locale: Locale): BylinePerson | null {
   const d = findDoctor(author);
   if (!d) return null;
-  return { name: tx(d.name, locale), title: tx(d.title, locale), url: DOCTOR_PROFILE_PATH };
+  return { name: tx(d.name, locale), title: tx(d.title, locale), url: profilePathFor(d.id) };
 }
 
 /** reviewer 머리말 → 표시용 Person. 없거나 이름을 못 정하면 null. */
@@ -47,7 +58,7 @@ export function resolveReviewer(reviewer: ReviewerField | undefined, locale: Loc
   if (!reviewer) return null;
   if (typeof reviewer === "string") {
     const d = findDoctor(reviewer);
-    if (d) return { name: tx(d.name, locale), title: tx(d.title, locale), url: DOCTOR_PROFILE_PATH };
+    if (d) return { name: tx(d.name, locale), title: tx(d.title, locale), url: profilePathFor(d.id) };
     return reviewer.trim() ? { name: reviewer.trim() } : null;
   }
   const d = findDoctor(reviewer.id) ?? findDoctor(reviewer.name);
@@ -56,7 +67,7 @@ export function resolveReviewer(reviewer: ReviewerField | undefined, locale: Loc
   return {
     name,
     title: reviewer.title?.trim() || (d ? tx(d.title, locale) : undefined),
-    url: reviewer.profile_url?.trim() || (d ? DOCTOR_PROFILE_PATH : undefined),
+    url: reviewer.profile_url?.trim() || (d ? profilePathFor(d.id) : undefined),
   };
 }
 
