@@ -10,6 +10,7 @@ import UspSection from "@/components/sections/UspSection";
 import TreatmentStory from "@/components/sections/TreatmentStory";
 import DoctorAuthority from "@/components/sections/DoctorAuthority";
 import CelebrityStrip from "@/components/sections/CelebrityStrip";
+import GoogleReviewsSlider from "@/components/sections/GoogleReviewsSlider";
 import HomeFaq from "@/components/sections/HomeFaq";
 import CategoryChips from "@/components/CategoryChips";
 import TreatmentExplorer from "@/components/TreatmentExplorer";
@@ -125,6 +126,7 @@ export default async function HomePage({
         <div className="mt-8">
           <CelebrityStrip />
           <StarMarquee />
+          <GoogleReviewsSlider />
         </div>
       </section>
 
