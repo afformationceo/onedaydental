@@ -128,6 +128,19 @@ export interface CelebritiesData {
   photos: CelebrityPhoto[];
 }
 
+/**
+ * Real Google Maps reviews transcribed from actual review screenshots
+ * (manual snapshot — not live-fetched). See lib/googleReviews.ts for the
+ * live Places API pipeline used elsewhere once branches[].placeId is set.
+ */
+export interface GoogleReviewStatic {
+  id: string;
+  authorName: string;
+  rating: number; // 1-5
+  text: string; // zh-TW — already the language the review was posted/shown in
+  relativeTime: string; // as displayed by Google, e.g. "一週前" / "5個月前"
+}
+
 export interface ClinicData {
   name: I18nText;
   tagline: I18nText;
@@ -144,6 +157,7 @@ export interface ClinicData {
   prices: PriceItem[];
   reviews: Review[];
   celebrities: CelebritiesData;
+  googleReviews: GoogleReviewStatic[];
   meta: {
     scrapedAt: string | null;
     sourceUrl: string;
